@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RT Facas - Facas artesanais feitas à mão com tradição e qualidade. Cutelaria rústica e premium.">
+  <title>RT Facas | Cutelaria Artesanal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg-dark: #0f0d0b;
+      --bg-card: #1a1714;
+      --bg-card-hover: #231f1a;
+      --accent: #c8956c;
+      --accent-dark: #a0714e;
+      --gold: #d4a853;
+      --text: #e8e0d6;
+      --text-muted: #9a8e80;
+      --border: #2e2821;
+      --font-display: 'Cinzel', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      background: rgba(15,13,11,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: .875rem; font-weight: 500;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text); margin: 5px 0; transition: .3s;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(15,13,11,.3) 0%, rgba(15,13,11,.85) 100%),
+        radial-gradient(ellipse at 50% 30%, rgba(200,149,108,.15) 0%, transparent 70%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8956c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: .5;
+    }
+    .hero-content { position: relative; z-index: 1; padding: 2rem; }
+    .hero-badge {
+      display: inline-block;
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: .5rem 1.5rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--text) 0%, var(--gold) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      max-width: 550px; margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: 1rem 2.5rem;
+      font-family: var(--font-body);
+      font-size: .875rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      text-decoration: none;
+      border: none; border-radius: 3px;
+      cursor: pointer; transition: all .3s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(200,149,108,.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(200,149,108,.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      margin-left: 1rem;
+    }
+    .btn-outline:hover { background: rgba(212,168,83,.1); }
+    .hero-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    /* DIVIDER */
+    .divider {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; padding: 3rem 0;
+    }
+    .divider-line { width: 80px; height: 1px; background: var(--border); }
+    .divider-icon { color: var(--accent); font-size: 1.25rem; }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: .75rem;
+      color: var(--text);
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: .95rem;
+      max-width: 500px; margin: 0 auto 3rem;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .about-img {
+      width: 100%; aspect-ratio: 4/5;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #2a2318 0%, #1a1510 100%);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .about-img::after {
+      content: '🔪';
+      font-size: 5rem;
+      filter: grayscale(.3);
+    }
+    .about-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem; margin-bottom: 1rem;
+      color: var(--gold);
+    }
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .stats {
+      display: flex; gap: 2rem; margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: .75rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    /* PRODUCTS */
+    #produtos { background: #0d0b09; }
+    .products-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.5);
+    }
+    .product-img {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #2a2318, #1a1510);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, var(--bg-card) 100%);
+    }
+    .product-tag {
+      position: absolute; top: 1rem; right: 1rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: .7rem; font-weight: 700;
+      padding: .3rem .75rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .product-info { padding: 1.5rem; }
+    .product-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin-bottom: .5rem;
+    }
+    .product-info p {
+      font-size: .85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .product-price {
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .price-current {
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--gold);
+    }
+    .price-old {
+      font-size: .85rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .feature {
+      text-align: center;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color .3s;
+    }
+    .feature:hover { border-color: var(--accent); }
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .feature h4 {
+      font-family: var(--font-display);
+      font-size: .95rem;
+      margin-bottom: .5rem;
+      color: var(--gold);
+    }
+    .feature p {
+      font-size: .8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* CONTACT / CTA */
+    .cta {
+      text-align: center;
+      background:
+        linear-gradient(180deg, var(--bg-dark) 0%, #1a1510 50%, var(--bg-dark) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 1rem;
+    }
+    .cta p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .btn-whatsapp {
+      background: #25d366;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(37,211,102,.3);
+    }
+    .btn-whatsapp:hover {
+      background: #20bd5a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,211,102,.4);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: .8rem;
+    }
+    footer .logo { font-size: 1.2rem; display: block; margin-bottom: 1rem; }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; width: 100%;
+        background: rgba(15,13,11,.95);
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn-outline { margin-left: 0; }
+      .stats { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">RT<span>FACAS</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#diferenciais">Diferenciais</a></li>
+        <li><a href="#encomendas">Encomendas</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="hero-badge">Cutelaria Artesanal</div>
+      <h1>Tradição Forjada<br>em Cada Lâmina</h1>
+      <p>Facas artesanais feitas à mão com a alma do campo e a precisão do aço. Do rodeio à sua mesa, qualidade que corta gerações.</p>
+      <div class="hero-buttons">
+        <a href="#produtos" class="btn btn-primary">Ver Produtos</a>
+        <a href="#contato" class="btn btn-outline">Fale Conosco</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-icon">⚔</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="about-grid">
+      <div class="about-img fade-up"></div>
+      <div class="about-text fade-up">
+        <h3>Nossa História</h3>
+        <p>Nascida no coração do campo brasileiro, a RT Facas carrega a tradição da cutelaria artesanal em cada peça. Cada faca é forjada à mão, com materiais selecionados e acabamento impecável.</p>
+        <p>Do aço inox 420c aos cabos de madeira nobre, nossos produtos são feitos para durar gerações — da lida no campo ao churrasco de domingo.</p>
+        <div class="stats">
+          <div>
+            <div class="stat-num">500+</div>
+            <div class="stat-label">Peças Vendidas</div>
+          </div>
+          <div>
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Artesanal</div>
+          </div>
+          <div>
+            <div class="stat-num">5★</div>
+            <div class="stat-label">Avaliações</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUTOS -->
+  <section id="produtos">
+    <h2 class="section-title fade-up">Nossos Produtos</h2>
+    <p class="section-sub fade-up">Peças únicas feitas com dedicação e tradição gaúcha</p>
+    <div class="products-grid">
+
+      <div class="product-card fade-up">
+        <div class="product-img">🔪<span class="product-tag">Mais Vendido</span></div>
+        <div class="product-info">
+          <h3>Faca Gaúcha 8"</h3>
+          <p>Aço inox 420c, 8 polegadas, semi polida, cabo em madeira nobre com bainha em couro.</p>
+          <div class="product-price">
+            <span class="price-current">R$ 150,00</span>
+            <span class="price-old">R$ 170,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">🍷</div>
+        <div class="product-info">
+          <h3>Porta Vinho Artesanal</h3>
+          <p>Caixa artesanal para vinho em madeira com acabamento rústico. Vinho não incluso.</p>
+          <div class="product-price">
+            <span class="price-current">R$ 180,00</span>
+            <span class="price-old">R$ 220,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">⚒️</div>
+        <div class="product-info">
+          <h3>Chaira 10" Estriada</h3>
+          <p>Chaira de cromo Vanagio 498, 10 polegadas estriada. Afiação profissional.</p>
+          <div class="product-price">
+            <span class="price-current">R$ 110,00</span>
+            <span class="price-old">R$ 150,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">🗡️<span class="product-tag">Novo</span></div>
+        <div class="product-info">
+          <h3>Faca de Desossa 6"</h3>
+          <p>Lâmina flexível em aço inox, ideal para desossa. Cabo ergonômico antideslizante.</p>
+          <div class="product-price">
+            <span class="price-current">R$ 120,00</span>
+            <span class="price-old">R$ 145,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">🥩</div>
+        <div class="product-info">
+          <h3>Kit Churrasco Premium</h3>
+          <p>Kit com faca, garfo e chaira em estojo de couro. Presente ideal para churrasqueiros.</p>
+          <div class="product-price">
+            <span class="price-current">R$ 350,00</span>
+            <span class="price-old">R$ 420,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img">🪓</div>
+        <div class="product-info">
+          <h3>Cutelo Artesanal</h3>
+          <p>Cutelo forjado à mão em aço carbono, cabo em madeira maciça. Peça única.</p>
+          <div class="product-price">
+            <span class="price-current">R$ 200,00</span>
+            <span class="price-old">R$ 250,00</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section id="diferenciais">
+    <h2 class="section-title fade-up">Por que RT Facas?</h2>
+    <p class="section-sub fade-up">Qualidade que você sente no primeiro corte</p>
+    <div class="features-grid">
+      <div class="feature fade-up">
+        <div class="feature-icon">🤲</div>
+        <h4>Feito à Mão</h4>
+        <p>Cada peça é forjada individualmente com atenção aos detalhes e acabamento impecável.</p>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">🛡️</div>
+        <h4>Garantia Vitalícia</h4>
+        <p>Confiamos tanto na qualidade que oferecemos garantia vitalícia em todas as lâminas.</p>
+      </div>
+      <div class="feature fade-up">
+        <div class="feature-icon">🚚</div>
+        <h4>Entrega Segura</h4>
+        <p>Enviamos para todo o Brasil com embalagem reforçada e rastreamento completo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENCOMENDAS -->
+  <section id="encomendas" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div style="max-width: 800px; margin: 0 auto; text-align: center;" class="fade-up">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🔥</div>
+      <h2 class="section-title" style="margin-bottom: 1rem;">Projetos Sob Encomenda</h2>
+      <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">Quer uma faca única, forjada exatamente do seu jeito? Trabalhamos com projetos personalizados onde você escolhe o aço, o design do cabo (madeiras nobres, osso, resina) e a gravação na lâmina (nome, logo, dedicatória). Uma verdadeira joia exclusiva feita para a sua mão.</p>
+      <a href="#contato" class="btn btn-outline">Solicitar Orçamento Personalizado</a>
+    </div>
+  </section>
+
+  <!-- CTA / CONTATO -->
+  <section class="cta" id="contato">
+    <h2 class="fade-up">Faça Sua Encomenda</h2>
+    <p class="fade-up">Entre em contato pelo WhatsApp e garanta sua peça artesanal. Aceitamos encomendas personalizadas!</p>
+    <a href="https://wa.me/5500000000000" target="_blank" class="btn btn-whatsapp fade-up">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chamar no WhatsApp
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="logo">RT<span>FACAS</span></a>
+    <p>&copy; 2026 RT Facas — Cutelaria Artesanal. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Hamburger menu
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // Scroll fade-in animation
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
