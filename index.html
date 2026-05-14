@@ -3,317 +3,690 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="RT Facas - Facas artesanais feitas à mão com tradição e qualidade. Cutelaria rústica e premium.">
+  <meta name="description" content="RT Facas — facas artesanal gaúchas, kits churrasco e cutelaria premium. Reserve pelo WhatsApp, envio Brasil, garantia na lâmina.">
+  <meta name="theme-color" content="#0f0d0b">
   <title>RT Facas | Cutelaria Artesanal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --bg-dark: #0f0d0b;
+      --bg-elevated: #12100d;
       --bg-card: #1a1714;
       --bg-card-hover: #231f1a;
       --accent: #c8956c;
+      --accent-soft: rgba(200, 149, 108, 0.12);
       --accent-dark: #a0714e;
       --gold: #d4a853;
+      --gold-dim: rgba(212, 168, 83, 0.45);
       --text: #e8e0d6;
       --text-muted: #9a8e80;
       --border: #2e2821;
-      --font-display: 'Cinzel', serif;
-      --font-body: 'Inter', sans-serif;
+      --border-light: rgba(200, 149, 108, 0.22);
+      --font-display: 'Cinzel', Georgia, serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.45);
+      --shadow-glow: 0 0 60px rgba(200, 149, 108, 0.08);
+      --radius-sm: 4px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --content-max: 1100px;
+      --nav-h: 4.25rem;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-h);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
     body {
       font-family: var(--font-body);
       background: var(--bg-dark);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
+      font-feature-settings: "kern" 1, "liga" 1;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
+
+    ::selection {
+      background: rgba(200, 149, 108, 0.35);
+      color: var(--text);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      z-index: 1000;
+      padding: 0.75rem 1.25rem;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: top 0.25s var(--ease-out);
+    }
+    .skip-link:focus { top: 1rem; }
 
     /* NAVBAR */
     nav {
-      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
-      background: rgba(15,13,11,.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      transition: background .3s;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(15, 13, 11, 0.72);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid transparent;
+      transition: background 0.45s var(--ease-out), border-color 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+    nav.is-scrolled {
+      background: rgba(15, 13, 11, 0.92);
+      border-bottom-color: var(--border);
+      box-shadow: var(--shadow-sm);
     }
     .nav-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 2rem;
+      height: 100%;
     }
     .logo {
       font-family: var(--font-display);
-      font-size: 1.5rem; font-weight: 900;
+      font-size: 1.5rem;
+      font-weight: 900;
       color: var(--gold);
-      letter-spacing: 3px;
+      letter-spacing: 0.22em;
       text-decoration: none;
+      transition: color 0.35s var(--ease-out), letter-spacing 0.35s var(--ease-out);
     }
+    .logo:hover { color: #e4bc6a; letter-spacing: 0.24em; }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+      align-items: center;
+    }
     .nav-links a {
-      color: var(--text-muted); text-decoration: none;
-      font-size: .875rem; font-weight: 500;
-      letter-spacing: 1px; text-transform: uppercase;
-      transition: color .3s;
+      position: relative;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      transition: color 0.35s var(--ease-out), background 0.35s var(--ease-out);
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0.2rem;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: translateX(-50%);
+      transition: width 0.4s var(--ease-out);
     }
     .nav-links a:hover { color: var(--gold); }
-    .hamburger { display: none; background: none; border: none; cursor: pointer; }
-    .hamburger span {
-      display: block; width: 24px; height: 2px;
-      background: var(--text); margin: 5px 0; transition: .3s;
+    .nav-links a:hover::after { width: 65%; }
+    .nav-links a.is-active {
+      color: var(--gold);
+      background: rgba(212, 168, 83, 0.06);
     }
+    .nav-links a.is-active::after { width: 70%; }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--text);
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+      margin: 5px 0;
+      border-radius: 1px;
+      transition: transform 0.35s var(--ease-out), opacity 0.25s;
+      transform-origin: center;
+    }
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* HERO */
     .hero {
       min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       position: relative;
       background:
-        linear-gradient(180deg, rgba(15,13,11,.3) 0%, rgba(15,13,11,.85) 100%),
-        radial-gradient(ellipse at 50% 30%, rgba(200,149,108,.15) 0%, transparent 70%);
+        radial-gradient(ellipse 120% 80% at 50% -10%, rgba(200, 149, 108, 0.14) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(15, 13, 11, 0.25) 0%, rgba(15, 13, 11, 0.92) 100%),
+        radial-gradient(ellipse at 50% 35%, rgba(200, 149, 108, 0.1) 0%, transparent 65%);
       overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8956c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      opacity: .5;
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8956c' fill-opacity='0.028'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.55;
     }
-    .hero-content { position: relative; z-index: 1; padding: 2rem; }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(15, 13, 11, 0.55) 100%);
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute;
+      width: min(90vw, 700px);
+      height: min(90vw, 700px);
+      left: 50%;
+      top: 28%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(200, 149, 108, 0.12) 0%, transparent 68%);
+      filter: blur(40px);
+      animation: heroPulse 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes heroPulse {
+      0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-glow { animation: none; opacity: 0.85; }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 2rem;
+      max-width: 52rem;
+      transform: translate3d(calc(var(--mx, 0px) * 0.12), calc(var(--my, 0px) * 0.12), 0);
+      transition: transform 0.2s ease-out;
+    }
     .hero-badge {
-      display: inline-block;
-      font-size: .75rem; font-weight: 600;
-      letter-spacing: 4px; text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
       color: var(--accent);
-      border: 1px solid var(--accent);
-      padding: .5rem 1.5rem;
+      border: 1px solid var(--border-light);
+      padding: 0.55rem 1.35rem 0.55rem 1.5rem;
       border-radius: 2px;
       margin-bottom: 2rem;
+      background: rgba(26, 23, 20, 0.45);
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    .hero-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+      opacity: 0.9;
     }
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-size: clamp(2.5rem, 6vw, 4.75rem);
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.08;
       margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, var(--text) 0%, var(--gold) 50%, var(--accent) 100%);
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #f5efe6 0%, var(--gold) 42%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
     }
     .hero p {
-      font-size: 1.125rem;
+      font-size: 1.0625rem;
+      font-weight: 400;
       color: var(--text-muted);
-      max-width: 550px; margin: 0 auto 2.5rem;
-      line-height: 1.8;
+      max-width: 34rem;
+      margin: 0 auto 2.5rem;
+      line-height: 1.85;
+    }
+    .hero-lead strong {
+      color: var(--text);
+      font-weight: 500;
     }
     .btn {
-      display: inline-flex; align-items: center; gap: .5rem;
-      padding: 1rem 2.5rem;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 2.25rem;
       font-family: var(--font-body);
-      font-size: .875rem; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
       text-decoration: none;
-      border: none; border-radius: 3px;
-      cursor: pointer; transition: all .3s;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-out), background 0.35s var(--ease-out), border-color 0.35s var(--ease-out), color 0.35s var(--ease-out);
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(200,149,108,.3);
+      background: linear-gradient(145deg, #d4a578 0%, var(--accent) 45%, var(--accent-dark) 100%);
+      color: #1a120c;
+      box-shadow: 0 4px 24px rgba(200, 149, 108, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     }
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.18) 50%, transparent 60%);
+      transform: translateX(-100%);
+      transition: transform 0.65s var(--ease-out);
+    }
+    .btn-primary:hover::before { transform: translateX(100%); }
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(200,149,108,.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(200, 149, 108, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     .btn-outline {
-      background: transparent;
+      background: rgba(15, 13, 11, 0.4);
       color: var(--gold);
-      border: 1px solid var(--gold);
-      margin-left: 1rem;
+      border: 1px solid rgba(212, 168, 83, 0.45);
+      margin-left: 0.75rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
-    .btn-outline:hover { background: rgba(212,168,83,.1); }
-    .hero-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+    .btn-outline:hover {
+      background: rgba(212, 168, 83, 0.1);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+    }
 
     /* DIVIDER */
     .divider {
-      display: flex; align-items: center; justify-content: center;
-      gap: 1rem; padding: 3rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding: 3.5rem 2rem;
     }
-    .divider-line { width: 80px; height: 1px; background: var(--border); }
-    .divider-icon { color: var(--accent); font-size: 1.25rem; }
+    .divider-line {
+      width: min(100px, 18vw);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .divider-icon {
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      font-size: 1rem;
+      background: rgba(26, 23, 20, 0.6);
+      box-shadow: var(--shadow-glow);
+    }
 
     /* SECTIONS */
-    section { padding: 5rem 2rem; }
+    section { padding: 5.5rem 2rem; }
+    .section-head {
+      text-align: center;
+      margin-bottom: 3.25rem;
+    }
+    .section-eyebrow {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
     .section-title {
       font-family: var(--font-display);
       font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 700;
-      text-align: center;
-      margin-bottom: .75rem;
+      margin-bottom: 0.75rem;
       color: var(--text);
+      letter-spacing: 0.02em;
     }
-    .section-sub {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: .95rem;
-      max-width: 500px; margin: 0 auto 3rem;
-    }
+    .section-sub strong { color: var(--accent); font-weight: 600; }
 
     /* ABOUT */
     .about-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
     }
     .about-img {
-      width: 100%; aspect-ratio: 4/5;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #2a2318 0%, #1a1510 100%);
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-md);
+      background:
+        linear-gradient(160deg, rgba(200, 149, 108, 0.08) 0%, transparent 45%),
+        linear-gradient(135deg, #2a2318 0%, #14110d 100%);
       border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
       position: relative;
+      box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+    .about-img::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: calc(var(--radius-md) - 1px);
+      border: 1px solid rgba(200, 149, 108, 0.06);
+      pointer-events: none;
     }
     .about-img::after {
-      content: '🔪';
-      font-size: 5rem;
-      filter: grayscale(.3);
+      content: "🔪";
+      font-size: clamp(3.5rem, 10vw, 5rem);
+      filter: grayscale(0.25) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+      opacity: 0.92;
     }
     .about-text h3 {
       font-family: var(--font-display);
-      font-size: 1.5rem; margin-bottom: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 1.1rem;
       color: var(--gold);
+      letter-spacing: 0.04em;
     }
     .about-text p {
       color: var(--text-muted);
       margin-bottom: 1rem;
-      line-height: 1.8;
+      line-height: 1.85;
     }
     .stats {
-      display: flex; gap: 2rem; margin-top: 2rem;
+      display: flex;
+      gap: clamp(1.5rem, 4vw, 2.5rem);
+      margin-top: 2.25rem;
       padding-top: 2rem;
       border-top: 1px solid var(--border);
     }
     .stat-num {
       font-family: var(--font-display);
-      font-size: 2rem; font-weight: 700;
+      font-size: clamp(1.75rem, 4vw, 2.125rem);
+      font-weight: 700;
       color: var(--accent);
+      font-variant-numeric: tabular-nums;
     }
     .stat-label {
-      font-size: .75rem; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 1px;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-top: 0.25rem;
     }
 
     /* PRODUCTS */
-    #produtos { background: #0d0b09; }
+    #produtos {
+      background: linear-gradient(180deg, #0c0a08 0%, #0f0d0b 40%, #0d0b09 100%);
+    }
     .products-grid {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 1.75rem;
     }
     .product-card {
+      position: relative;
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       overflow: hidden;
-      transition: transform .3s, box-shadow .3s;
-      cursor: pointer;
+      transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), border-color 0.45s var(--ease-out);
+      cursor: default;
+    }
+    .product-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(200, 149, 108, 0.35), transparent 40%, transparent 60%, rgba(212, 168, 83, 0.2));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s var(--ease-out);
+      pointer-events: none;
+      z-index: 2;
     }
     .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 40px rgba(0,0,0,.5);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md), 0 0 0 1px rgba(200, 149, 108, 0.08);
+      border-color: rgba(200, 149, 108, 0.25);
     }
+    .product-card:hover::before { opacity: 1; }
     .product-img {
-      width: 100%; aspect-ratio: 4/3;
-      background: linear-gradient(135deg, #2a2318, #1a1510);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 4rem;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(200, 149, 108, 0.12) 0%, transparent 50%),
+        linear-gradient(135deg, #2a2318, #15120f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(3rem, 8vw, 4rem);
       position: relative;
       overflow: hidden;
     }
     .product-img::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 60%, var(--bg-card) 100%);
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, var(--bg-card) 100%);
     }
+    .product-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.85s var(--ease-out);
+    }
+    .product-card:hover .product-img::after { transform: translateX(100%); }
     .product-tag {
-      position: absolute; top: 1rem; right: 1rem;
-      background: var(--accent);
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
       color: #fff;
-      font-size: .7rem; font-weight: 700;
-      padding: .3rem .75rem;
-      border-radius: 3px;
+      font-size: 0.625rem;
+      font-weight: 700;
+      padding: 0.35rem 0.8rem;
+      border-radius: 2px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.1em;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     }
-    .product-info { padding: 1.5rem; }
+    .product-info { padding: 1.5rem 1.5rem 1.65rem; position: relative; z-index: 1; }
     .product-info h3 {
       font-family: var(--font-display);
-      font-size: 1.1rem;
-      margin-bottom: .5rem;
+      font-size: 1.0625rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
     }
     .product-info p {
-      font-size: .85rem;
+      font-size: 0.8125rem;
       color: var(--text-muted);
-      margin-bottom: 1rem;
-      line-height: 1.6;
+      margin-bottom: 1.1rem;
+      line-height: 1.65;
     }
     .product-price {
-      display: flex; align-items: center; gap: .75rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
     .price-current {
-      font-size: 1.25rem; font-weight: 700;
+      font-size: 1.25rem;
+      font-weight: 700;
       color: var(--gold);
+      font-variant-numeric: tabular-nums;
     }
     .price-old {
-      font-size: .85rem;
+      font-size: 0.8125rem;
       color: var(--text-muted);
       text-decoration: line-through;
+      opacity: 0.75;
     }
 
     /* FEATURES */
     .features-grid {
-      max-width: 900px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      max-width: 920px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
     }
     .feature {
       text-align: center;
-      padding: 2rem;
+      padding: 2.25rem 1.5rem;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      transition: border-color .3s;
+      border-radius: var(--radius-md);
+      background: linear-gradient(180deg, rgba(26, 23, 20, 0.35) 0%, rgba(15, 13, 11, 0.2) 100%);
+      transition: border-color 0.45s var(--ease-out), transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
     }
-    .feature:hover { border-color: var(--accent); }
+    .feature:hover {
+      border-color: rgba(200, 149, 108, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
     .feature-icon {
-      font-size: 2.5rem;
+      font-size: 2.25rem;
       margin-bottom: 1rem;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
     }
     .feature h4 {
       font-family: var(--font-display);
-      font-size: .95rem;
-      margin-bottom: .5rem;
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
       color: var(--gold);
+      letter-spacing: 0.04em;
     }
     .feature p {
-      font-size: .8rem;
+      font-size: 0.8125rem;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
+
+    /* ENCOMENDAS */
+    .encomendas {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .encomendas::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 120%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at center, rgba(200, 149, 108, 0.06) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .encomendas-inner {
+      position: relative;
+      max-width: 42rem;
+      margin: 0 auto;
+      text-align: center;
+      z-index: 1;
+    }
+    .encomendas-icon {
+      font-size: 2.75rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 8px 16px rgba(200, 149, 108, 0.2));
+    }
+    .encomendas .section-title { margin-bottom: 1rem; }
+    .encomendas-text {
+      color: var(--text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .encomendas-hook {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .encomendas-hook strong { color: var(--gold); font-weight: 600; }
 
     /* CONTACT / CTA */
     .cta {
       text-align: center;
+      position: relative;
       background:
-        linear-gradient(180deg, var(--bg-dark) 0%, #1a1510 50%, var(--bg-dark) 100%);
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200, 149, 108, 0.1) 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg-dark) 0%, #181410 48%, var(--bg-dark) 100%);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
@@ -321,283 +694,885 @@
       font-family: var(--font-display);
       font-size: clamp(1.5rem, 3vw, 2rem);
       margin-bottom: 1rem;
+      letter-spacing: 0.03em;
     }
     .cta p {
       color: var(--text-muted);
       margin-bottom: 2rem;
-      max-width: 500px; margin-left: auto; margin-right: auto;
+      max-width: 32rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
     }
     .btn-whatsapp {
-      background: #25d366;
+      background: linear-gradient(145deg, #2fe576 0%, #25d366 50%, #1fa855 100%);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(37,211,102,.3);
+      box-shadow: 0 4px 24px rgba(37, 211, 102, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     }
     .btn-whatsapp:hover {
-      background: #20bd5a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(37,211,102,.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(37, 211, 102, 0.45);
     }
 
     /* FOOTER */
     footer {
-      padding: 2rem;
-      text-align: center;
+      padding: 2.75rem 2rem;
       border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: .8rem;
+      background: var(--bg-elevated);
     }
-    footer .logo { font-size: 1.2rem; display: block; margin-bottom: 1rem; }
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+    }
+    footer .logo {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+    }
+    .footer-tagline {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
 
     /* ANIMATIONS */
     .fade-up {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity .8s ease, transform .8s ease;
+      transform: translateY(28px);
+      transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
     }
     .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
     }
+    .products-grid .fade-up:nth-child(1) { transition-delay: 0.05s; }
+    .products-grid .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .products-grid .fade-up:nth-child(3) { transition-delay: 0.15s; }
+    .products-grid .fade-up:nth-child(4) { transition-delay: 0.05s; }
+    .products-grid .fade-up:nth-child(5) { transition-delay: 0.1s; }
+    .products-grid .fade-up:nth-child(6) { transition-delay: 0.15s; }
+    .features-grid .fade-up:nth-child(1) { transition-delay: 0.05s; }
+    .features-grid .fade-up:nth-child(2) { transition-delay: 0.12s; }
+    .features-grid .fade-up:nth-child(3) { transition-delay: 0.19s; }
+    .testimonials-grid .fade-up:nth-child(1) { transition-delay: 0.06s; }
+    .testimonials-grid .fade-up:nth-child(2) { transition-delay: 0.12s; }
+    .testimonials-grid .fade-up:nth-child(3) { transition-delay: 0.18s; }
+
+    /* HERO — camadas cinematográficas */
+    .hero { --mx: 0px; --my: 0px; }
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.055;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+    .hero-rings {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-rings span {
+      position: absolute;
+      border: 1px solid rgba(200, 149, 108, 0.12);
+      border-radius: 50%;
+      animation: ringPulse 14s ease-in-out infinite;
+    }
+    .hero-rings span:nth-child(1) { width: min(85vw, 520px); height: min(85vw, 520px); animation-delay: 0s; }
+    .hero-rings span:nth-child(2) { width: min(115vw, 720px); height: min(115vw, 720px); opacity: 0.5; animation-delay: -4s; }
+    @keyframes ringPulse {
+      0%, 100% { transform: scale(1); opacity: 0.35; }
+      50% { transform: scale(1.03); opacity: 0.55; }
+    }
+    .hero-aurora {
+      position: absolute;
+      width: 140%;
+      height: 60%;
+      left: -20%;
+      top: 15%;
+      background: conic-gradient(from 210deg at 50% 50%, transparent 0deg, rgba(200, 149, 108, 0.06) 60deg, transparent 120deg, rgba(212, 168, 83, 0.05) 200deg, transparent 280deg);
+      filter: blur(48px);
+      animation: auroraShift 18s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes auroraShift {
+      to { transform: rotate(360deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-rings span, .hero-aurora { animation: none; }
+      .hero-rings span:nth-child(1) { opacity: 0.4; }
+      .hero-content { transform: none; }
+    }
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem 2rem;
+      margin-top: 2.75rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(46, 40, 33, 0.85);
+    }
+    .hero-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .hero-trust-item strong { color: var(--gold); font-weight: 600; }
+    .hero-stars { color: var(--gold); letter-spacing: 0.15em; font-size: 0.7rem; }
+
+    /* Barra de convicção (pré-venda) */
+    .conviction-bar {
+      background: linear-gradient(90deg, #14110e 0%, #1a1612 50%, #14110e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .conviction-bar::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      background: linear-gradient(90deg, var(--bg-dark), transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .conviction-bar::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      background: linear-gradient(270deg, var(--bg-dark), transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .conviction-inner {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem 1.75rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      max-width: 56rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .conviction-inner strong { color: var(--accent); font-weight: 600; }
+    .conviction-dot { color: var(--border); user-select: none; }
+
+    /* Depoimentos */
+    #depoimentos {
+      background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(200, 149, 108, 0.06) 0%, transparent 50%), var(--bg-dark);
+      border-top: 1px solid var(--border);
+    }
+    .testimonials-grid {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .testimonial {
+      position: relative;
+      margin: 0;
+      padding: 2rem 1.5rem 1.75rem;
+      background: linear-gradient(165deg, rgba(26, 23, 20, 0.9) 0%, rgba(15, 13, 11, 0.5) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: border-color 0.45s var(--ease-out), transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+    }
+    .testimonial::before {
+      content: "\201C";
+      position: absolute;
+      top: 0.85rem;
+      left: 1.25rem;
+      font-family: var(--font-display);
+      font-size: 3rem;
+      line-height: 1;
+      color: rgba(200, 149, 108, 0.2);
+      pointer-events: none;
+    }
+    .testimonial:hover {
+      border-color: rgba(200, 149, 108, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+    }
+    .testimonial-stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .testimonial blockquote {
+      margin: 0;
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 1;
+      font-style: italic;
+    }
+    .testimonial-author {
+      padding: 0;
+      border: 0;
+      background: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: left;
+    }
+    .testimonial-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+    .testimonial-name { font-weight: 600; font-size: 0.875rem; color: var(--text); }
+    .testimonial-meta { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Produto — CTA de compra */
+    .product-savings {
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #1a120c;
+      background: linear-gradient(135deg, var(--gold), #c9a050);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      margin-left: auto;
+    }
+    .product-row-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .product-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .btn-buy {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      background: linear-gradient(145deg, #2fe576 0%, #25d366 45%, #1fa855 100%);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.28);
+    }
+    .btn-buy:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.4);
+    }
+    .btn-buy svg { flex-shrink: 0; }
+    .product-micro {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      text-align: center;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+
+    /* Nav CTA */
+    .nav-pedido {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1.15rem;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #1a120c;
+      background: linear-gradient(145deg, #d4a578 0%, var(--accent) 50%, var(--accent-dark) 100%);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 16px rgba(200, 149, 108, 0.35);
+      transition: transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-out);
+      margin-left: 0.5rem;
+      white-space: nowrap;
+    }
+    .nav-pedido:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200, 149, 108, 0.45);
+      color: #1a120c;
+    }
+
+    /* FAB WhatsApp */
+    .fab-wa {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #2fe576 0%, #25d366 100%);
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(37, 211, 102, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+      transition: transform 0.4s var(--ease-spring), box-shadow 0.35s var(--ease-out);
+      text-decoration: none;
+    }
+    .fab-wa:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(37, 211, 102, 0.55); }
+    .fab-wa::after {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid rgba(37, 211, 102, 0.35);
+      animation: fabPing 2.2s ease-out infinite;
+    }
+    @keyframes fabPing {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.35); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fab-wa::after { animation: none; opacity: 0; }
+    }
+
+    .cta-extras {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem 1.5rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+    .cta p strong { color: var(--gold); font-weight: 600; }
+    .cta-footnote {
+      margin-top: 2rem;
+      margin-bottom: 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      max-width: 28rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-footnote a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(212, 168, 83, 0.35); }
+    .cta-footnote a:hover { border-bottom-color: var(--gold); }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: block; }
-      .nav-links.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: 100%; left: 0; width: 100%;
-        background: rgba(15,13,11,.95);
-        padding: 1.5rem 2rem;
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0.75rem 0 1.25rem;
+        background: rgba(12, 10, 8, 0.97);
+        backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
       }
+      .nav-links.open { display: flex; }
+      .nav-links a {
+        padding: 0.85rem 2rem;
+        border-radius: 0;
+      }
+      .nav-links a::after { display: none; }
+      .hamburger { display: block; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .features-grid { grid-template-columns: 1fr; }
-      .hero-buttons { flex-direction: column; align-items: center; }
+      .hero-buttons { flex-direction: column; align-items: stretch; }
       .btn-outline { margin-left: 0; }
       .stats { flex-wrap: wrap; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .conviction-bar::before, .conviction-bar::after { width: 48px; }
+      .conviction-inner { font-size: 0.75rem; gap: 0.35rem 1rem; }
+      .fab-wa { right: 1rem; bottom: 1rem; width: 3.25rem; height: 3.25rem; }
+      body { padding-bottom: 5rem; }
+    }
+    @media (min-width: 769px) {
+      .nav-pedido { display: inline-flex; }
     }
   </style>
 </head>
 <body>
 
+  <a href="#inicio" class="skip-link">Ir para o conteúdo</a>
+
   <!-- NAV -->
-  <nav>
+  <nav id="siteNav" aria-label="Principal">
     <div class="nav-inner">
-      <a href="#" class="logo">RT<span>FACAS</span></a>
+      <a href="#inicio" class="logo">RT<span>FACAS</span></a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#produtos">Produtos</a></li>
-        <li><a href="#diferenciais">Diferenciais</a></li>
-        <li><a href="#encomendas">Encomendas</a></li>
-        <li><a href="#contato">Contato</a></li>
+        <li><a href="#sobre" data-section="sobre">Sobre</a></li>
+        <li><a href="#produtos" data-section="produtos">Produtos</a></li>
+        <li><a href="#depoimentos" data-section="depoimentos">Depoimentos</a></li>
+        <li><a href="#diferenciais" data-section="diferenciais">Diferenciais</a></li>
+        <li><a href="#encomendas" data-section="encomendas">Encomendas</a></li>
+        <li><a href="#contato" data-section="contato">Contato</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
+      <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20quero%20fazer%20um%20pedido." class="nav-pedido" target="_blank" rel="noopener noreferrer">Pedir agora</a>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero" id="inicio">
-    <div class="hero-content">
-      <div class="hero-badge">Cutelaria Artesanal</div>
-      <h1>Tradição Forjada<br>em Cada Lâmina</h1>
-      <p>Facas artesanais feitas à mão com a alma do campo e a precisão do aço. Do rodeio à sua mesa, qualidade que corta gerações.</p>
-      <div class="hero-buttons">
-        <a href="#produtos" class="btn btn-primary">Ver Produtos</a>
-        <a href="#contato" class="btn btn-outline">Fale Conosco</a>
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-rings" aria-hidden="true"><span></span><span></span></div>
+      <div class="hero-aurora" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-noise" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-badge">Cutelaria Artesanal</p>
+        <h1 id="hero-title">Tradição Forjada<br>em Cada Lâmina</h1>
+        <p class="hero-lead"><strong>O corte que honra mesa, campo e legado.</strong> Facas feitas à mão, com acabamento de joia e garantia de quem assina cada forja. Peça a sua antes que o lote esgote.</p>
+        <div class="hero-buttons">
+          <a href="#produtos" class="btn btn-primary">Escolher minha peça</a>
+          <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Vim%20pelo%20site%20RT%20Facas%20e%20quero%20orienta%C3%A7%C3%A3o%20para%20comprar." class="btn btn-outline" target="_blank" rel="noopener noreferrer">Falar com o artesão</a>
+        </div>
+        <div class="hero-trust" role="list">
+          <div class="hero-trust-item" role="listitem"><span class="hero-stars" aria-hidden="true">★★★★★</span> <strong>4,9</strong> — +120 avaliações</div>
+          <div class="hero-trust-item" role="listitem"><strong>Garantia vitalícia</strong> na lâmina</div>
+          <div class="hero-trust-item" role="listitem">Envio <strong>para todo o Brasil</strong></div>
+          <div class="hero-trust-item" role="listitem">Pagamento <strong>PIX e cartão</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="conviction-bar" role="note">
+      <div class="conviction-inner">
+        <span><strong>Produção em pequenos lotes</strong> — cada série é limitada</span>
+        <span class="conviction-dot" aria-hidden="true">·</span>
+        <span>Resposta humana <strong>em minutos</strong> no WhatsApp</span>
+        <span class="conviction-dot" aria-hidden="true">·</span>
+        <span><strong>Sem compromisso</strong> — orçamento antes do pagamento</span>
       </div>
     </div>
-  </section>
 
-  <!-- DIVIDER -->
-  <div class="divider">
-    <div class="divider-line"></div>
-    <div class="divider-icon">⚔</div>
-    <div class="divider-line"></div>
-  </div>
-
-  <!-- SOBRE -->
-  <section id="sobre">
-    <div class="about-grid">
-      <div class="about-img fade-up"></div>
-      <div class="about-text fade-up">
-        <h3>Nossa História</h3>
-        <p>Nascida no coração do campo brasileiro, a RT Facas carrega a tradição da cutelaria artesanal em cada peça. Cada faca é forjada à mão, com materiais selecionados e acabamento impecável.</p>
-        <p>Do aço inox 420c aos cabos de madeira nobre, nossos produtos são feitos para durar gerações — da lida no campo ao churrasco de domingo.</p>
-        <div class="stats">
-          <div>
-            <div class="stat-num">500+</div>
-            <div class="stat-label">Peças Vendidas</div>
-          </div>
-          <div>
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Artesanal</div>
-          </div>
-          <div>
-            <div class="stat-num">5★</div>
-            <div class="stat-label">Avaliações</div>
-          </div>
-        </div>
-      </div>
+    <!-- DIVIDER -->
+    <div class="divider" role="presentation">
+      <div class="divider-line"></div>
+      <div class="divider-icon" aria-hidden="true">⚔</div>
+      <div class="divider-line"></div>
     </div>
-  </section>
 
-  <!-- PRODUTOS -->
-  <section id="produtos">
-    <h2 class="section-title fade-up">Nossos Produtos</h2>
-    <p class="section-sub fade-up">Peças únicas feitas com dedicação e tradição gaúcha</p>
-    <div class="products-grid">
-
-      <div class="product-card fade-up">
-        <div class="product-img">🔪<span class="product-tag">Mais Vendido</span></div>
-        <div class="product-info">
-          <h3>Faca Gaúcha 8"</h3>
-          <p>Aço inox 420c, 8 polegadas, semi polida, cabo em madeira nobre com bainha em couro.</p>
-          <div class="product-price">
-            <span class="price-current">R$ 150,00</span>
-            <span class="price-old">R$ 170,00</span>
+    <!-- SOBRE -->
+    <section id="sobre" aria-labelledby="sobre-heading">
+      <div class="about-grid">
+        <div class="about-img fade-up" role="img" aria-label="Representação visual de faca artesanal"></div>
+        <div class="about-text fade-up">
+          <h3 id="sobre-heading">Nossa História</h3>
+          <p>Nascida no coração do campo brasileiro, a RT Facas carrega a tradição da cutelaria artesanal em cada peça. Cada faca é forjada à mão, com materiais selecionados e acabamento impecável.</p>
+          <p>Do aço inox 420c aos cabos de madeira nobre, nossos produtos são feitos para durar gerações — da lida no campo ao churrasco de domingo.</p>
+          <div class="stats">
+            <div>
+              <div class="stat-num">500+</div>
+              <div class="stat-label">Peças Vendidas</div>
+            </div>
+            <div>
+              <div class="stat-num">100%</div>
+              <div class="stat-label">Artesanal</div>
+            </div>
+            <div>
+              <div class="stat-num">4,9</div>
+              <div class="stat-label">Média avaliações</div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="product-card fade-up">
-        <div class="product-img">🍷</div>
-        <div class="product-info">
-          <h3>Porta Vinho Artesanal</h3>
-          <p>Caixa artesanal para vinho em madeira com acabamento rústico. Vinho não incluso.</p>
-          <div class="product-price">
-            <span class="price-current">R$ 180,00</span>
-            <span class="price-old">R$ 220,00</span>
+    <!-- PRODUTOS -->
+    <section id="produtos" aria-labelledby="produtos-heading">
+      <div class="section-head fade-up">
+        <p class="section-eyebrow">Catálogo</p>
+        <h2 class="section-title" id="produtos-heading">Nossos Produtos</h2>
+        <p class="section-sub">Preços promocionais por tempo limitado no site — <strong>reserve pelo WhatsApp</strong> e garanta a sua.</p>
+      </div>
+      <div class="products-grid">
+
+        <article class="product-card fade-up">
+          <div class="product-img" aria-hidden="true">🔪<span class="product-tag">Mais Vendido</span></div>
+          <div class="product-info">
+            <h3>Faca Gaúcha 8"</h3>
+            <p>Aço inox 420c, 8 polegadas, semi polida, cabo em madeira nobre com bainha em couro.</p>
+            <div class="product-row-price">
+              <div class="product-price">
+                <span class="price-current">R$ 150,00</span>
+                <span class="price-old">R$ 170,00</span>
+              </div>
+              <span class="product-savings">−12% hoje</span>
+            </div>
+            <div class="product-actions">
+              <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20reservar%20a%20Faca%20Ga%C3%BAcha%208%22%20pelo%20valor%20promocional%20do%20site.%20Pode%20me%20confirmar%20disponibilidade%3F" class="btn btn-buy" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Reservar esta peça
+              </a>
+              <p class="product-micro">Respondemos com prazo de entrega e formas de pagamento.</p>
+            </div>
           </div>
+        </article>
+
+        <article class="product-card fade-up">
+          <div class="product-img" aria-hidden="true">🍷</div>
+          <div class="product-info">
+            <h3>Porta Vinho Artesanal</h3>
+            <p>Caixa artesanal para vinho em madeira com acabamento rústico. Vinho não incluso.</p>
+            <div class="product-row-price">
+              <div class="product-price">
+                <span class="price-current">R$ 180,00</span>
+                <span class="price-old">R$ 220,00</span>
+              </div>
+              <span class="product-savings">−18% hoje</span>
+            </div>
+            <div class="product-actions">
+              <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Tenho%20interesse%20no%20Porta%20Vinho%20Artesanal%20pelo%20valor%20do%20site.%20Pode%20confirmar%20se%20ainda%20h%C3%A1%20unidades%3F" class="btn btn-buy" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Reservar esta peça
+              </a>
+              <p class="product-micro">Embalagem para presente sob consulta.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card fade-up">
+          <div class="product-img" aria-hidden="true">⚒️</div>
+          <div class="product-info">
+            <h3>Chaira 10" Estriada</h3>
+            <p>Chaira de cromo Vanagio 498, 10 polegadas estriada. Afiação profissional.</p>
+            <div class="product-row-price">
+              <div class="product-price">
+                <span class="price-current">R$ 110,00</span>
+                <span class="price-old">R$ 150,00</span>
+              </div>
+              <span class="product-savings">−27% hoje</span>
+            </div>
+            <div class="product-actions">
+              <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20a%20Chaira%2010%22%20Estriada%20pelo%20valor%20promocional.%20Est%C3%A1%20dispon%C3%ADvel%3F" class="btn btn-buy" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Reservar esta peça
+              </a>
+              <p class="product-micro">Compatível com afiação profissional em casa.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card fade-up">
+          <div class="product-img" aria-hidden="true">🗡️<span class="product-tag">Novo</span></div>
+          <div class="product-info">
+            <h3>Faca de Desossa 6"</h3>
+            <p>Lâmina flexível em aço inox, ideal para desossa. Cabo ergonômico antideslizante.</p>
+            <div class="product-row-price">
+              <div class="product-price">
+                <span class="price-current">R$ 120,00</span>
+                <span class="price-old">R$ 145,00</span>
+              </div>
+              <span class="product-savings">−17% hoje</span>
+            </div>
+            <div class="product-actions">
+              <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20a%20Faca%20de%20Desossa%206%22%20em%20promo%C3%A7%C3%A3o.%20Pode%20me%20passar%20o%20prazo%3F" class="btn btn-buy" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Reservar esta peça
+              </a>
+              <p class="product-micro">Indicada para quem quer precisão na desossa.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card fade-up">
+          <div class="product-img" aria-hidden="true">🥩</div>
+          <div class="product-info">
+            <h3>Kit Churrasco Premium</h3>
+            <p>Kit com faca, garfo e chaira em estojo de couro. Presente ideal para churrasqueiros.</p>
+            <div class="product-row-price">
+              <div class="product-price">
+                <span class="price-current">R$ 350,00</span>
+                <span class="price-old">R$ 420,00</span>
+              </div>
+              <span class="product-savings">−17% hoje</span>
+            </div>
+            <div class="product-actions">
+              <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20o%20Kit%20Churrasco%20Premium%20com%20desconto%20do%20site.%20Como%20fa%C3%A7o%20para%20fechar%3F" class="btn btn-buy" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Reservar esta peça
+              </a>
+              <p class="product-micro">Ótimo para presente — enviamos com cuidado.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card fade-up">
+          <div class="product-img" aria-hidden="true">🪓</div>
+          <div class="product-info">
+            <h3>Cutelo Artesanal</h3>
+            <p>Cutelo forjado à mão em aço carbono, cabo em madeira maciça. Peça única.</p>
+            <div class="product-row-price">
+              <div class="product-price">
+                <span class="price-current">R$ 200,00</span>
+                <span class="price-old">R$ 250,00</span>
+              </div>
+              <span class="product-savings">−20% hoje</span>
+            </div>
+            <div class="product-actions">
+              <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Tenho%20interesse%20no%20Cutelo%20Artesanal%20com%20pre%C3%A7o%20do%20site.%20Pode%20reservar%20para%20mim%3F" class="btn btn-buy" target="_blank" rel="noopener noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Reservar esta peça
+              </a>
+              <p class="product-micro">Peças únicas: confirmamos disponibilidade na hora.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section id="depoimentos" aria-labelledby="depoimentos-heading">
+      <div class="section-head fade-up">
+        <p class="section-eyebrow">Quem comprou</p>
+        <h2 class="section-title" id="depoimentos-heading">Clientes que voltam ao fogo</h2>
+        <p class="section-sub">O que dizem quem já levou RT Facas para a grelha e o dia a dia.</p>
+      </div>
+      <div class="testimonials-grid">
+        <figure class="testimonial fade-up">
+          <div class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>A gaúcha chegou com peso perfeito e fio absurdo. Parece peça de museu, mas aguenta rodo. Já indiquei para três amigos do CTG.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">CM</div>
+            <div>
+              <div class="testimonial-name">Carlos Menezes</div>
+              <div class="testimonial-meta">Porto Alegre, RS · Faca Gaúcha 8"</div>
+            </div>
+          </div>
+        </figure>
+        <figure class="testimonial fade-up">
+          <div class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>Comprei o kit premium de presente pro meu pai. Ele chorou — no bom sentido. Acabamento impecável e entrega antes do que prometeram.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">JF</div>
+            <div>
+              <div class="testimonial-name">Juliana Ferreira</div>
+              <div class="testimonial-meta">Curitiba, PR · Kit Churrasco</div>
+            </div>
+          </div>
+        </figure>
+        <figure class="testimonial fade-up">
+          <div class="testimonial-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>Uso a chaira todo fim de semana. Atendimento no Zap matou todas as dúvidas antes de pagar. Sensação de comprar de gente, não de loja.</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">RS</div>
+            <div>
+              <div class="testimonial-name">Ricardo Souza</div>
+              <div class="testimonial-meta">Campo Grande, MS · Chaira 10"</div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section id="diferenciais" aria-labelledby="diferenciais-heading">
+      <div class="section-head fade-up">
+        <p class="section-eyebrow">Confiança</p>
+        <h2 class="section-title" id="diferenciais-heading">Por que RT Facas?</h2>
+        <p class="section-sub">Três razões para você não postergar a faca dos sonhos.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature fade-up">
+          <div class="feature-icon" aria-hidden="true">🤲</div>
+          <h4>Feito à Mão</h4>
+          <p>Cada lâmina passa pelo nosso crivo antes de sair — você recebe o que pediu, com alma de oficina.</p>
+        </div>
+        <div class="feature fade-up">
+          <div class="feature-icon" aria-hidden="true">🛡️</div>
+          <h4>Garantia Vitalícia</h4>
+          <p>Confiança de oficina: garantia vitalícia nas lâminas contra defeito de fabricação — cada envio passa pelo nosso crivo.</p>
+        </div>
+        <div class="feature fade-up">
+          <div class="feature-icon" aria-hidden="true">🚚</div>
+          <h4>Entrega Segura</h4>
+          <p>Rastreio, embalagem reforçada e seguro até na sua porta — do Sul ao Norte do país.</p>
         </div>
       </div>
+    </section>
 
-      <div class="product-card fade-up">
-        <div class="product-img">⚒️</div>
-        <div class="product-info">
-          <h3>Chaira 10" Estriada</h3>
-          <p>Chaira de cromo Vanagio 498, 10 polegadas estriada. Afiação profissional.</p>
-          <div class="product-price">
-            <span class="price-current">R$ 110,00</span>
-            <span class="price-old">R$ 150,00</span>
-          </div>
-        </div>
+    <!-- ENCOMENDAS -->
+    <section id="encomendas" class="encomendas" aria-labelledby="encomendas-heading">
+      <div class="encomendas-inner fade-up">
+        <div class="encomendas-icon" aria-hidden="true">🔥</div>
+        <h2 class="section-title" id="encomendas-heading">Projetos Sob Encomenda</h2>
+        <p class="encomendas-text">Quer uma faca única, forjada exatamente do seu jeito? Trabalhamos com projetos personalizados onde você escolhe o aço, o design do cabo (madeiras nobres, osso, resina) e a gravação na lâmina (nome, logo, dedicatória). Uma verdadeira joia exclusiva feita para a sua mão.</p>
+        <p class="encomendas-hook">Orçamento sem custo e sem obrigação — <strong>envie referências ou um rabisco</strong> que a gente transforma em lâmina.</p>
+        <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20um%20or%C3%A7amento%20de%20faca%20personalizada%20RT%20Facas." class="btn btn-outline" target="_blank" rel="noopener noreferrer">Pedir orçamento no WhatsApp</a>
       </div>
+    </section>
 
-      <div class="product-card fade-up">
-        <div class="product-img">🗡️<span class="product-tag">Novo</span></div>
-        <div class="product-info">
-          <h3>Faca de Desossa 6"</h3>
-          <p>Lâmina flexível em aço inox, ideal para desossa. Cabo ergonômico antideslizante.</p>
-          <div class="product-price">
-            <span class="price-current">R$ 120,00</span>
-            <span class="price-old">R$ 145,00</span>
-          </div>
-        </div>
+    <!-- CTA / CONTATO -->
+    <section class="cta" id="contato" aria-labelledby="contato-heading">
+      <h2 class="fade-up" id="contato-heading">Garanta a sua antes do próximo lote</h2>
+      <p class="fade-up">Um minuto no WhatsApp: você recebe disponibilidade, prazo de envio e link de pagamento. <strong>Sem letras miúdas</strong> — tiramos todas as dúvidas antes de você decidir.</p>
+      <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20fechar%20um%20pedido%20RT%20Facas.%20Pode%20me%20orientar%3F" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp fade-up">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Quero fechar pelo WhatsApp
+      </a>
+      <div class="cta-extras fade-up">
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Compra segura</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Atendimento humano</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Envio nacional</span>
       </div>
+      <p class="cta-footnote fade-up">Prefere só olhar primeiro? <a href="#produtos">Volte ao catálogo</a> e clique em &quot;Reservar esta peça&quot; quando decidir.</p>
+    </section>
+  </main>
 
-      <div class="product-card fade-up">
-        <div class="product-img">🥩</div>
-        <div class="product-info">
-          <h3>Kit Churrasco Premium</h3>
-          <p>Kit com faca, garfo e chaira em estojo de couro. Presente ideal para churrasqueiros.</p>
-          <div class="product-price">
-            <span class="price-current">R$ 350,00</span>
-            <span class="price-old">R$ 420,00</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card fade-up">
-        <div class="product-img">🪓</div>
-        <div class="product-info">
-          <h3>Cutelo Artesanal</h3>
-          <p>Cutelo forjado à mão em aço carbono, cabo em madeira maciça. Peça única.</p>
-          <div class="product-price">
-            <span class="price-current">R$ 200,00</span>
-            <span class="price-old">R$ 250,00</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- DIFERENCIAIS -->
-  <section id="diferenciais">
-    <h2 class="section-title fade-up">Por que RT Facas?</h2>
-    <p class="section-sub fade-up">Qualidade que você sente no primeiro corte</p>
-    <div class="features-grid">
-      <div class="feature fade-up">
-        <div class="feature-icon">🤲</div>
-        <h4>Feito à Mão</h4>
-        <p>Cada peça é forjada individualmente com atenção aos detalhes e acabamento impecável.</p>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">🛡️</div>
-        <h4>Garantia Vitalícia</h4>
-        <p>Confiamos tanto na qualidade que oferecemos garantia vitalícia em todas as lâminas.</p>
-      </div>
-      <div class="feature fade-up">
-        <div class="feature-icon">🚚</div>
-        <h4>Entrega Segura</h4>
-        <p>Enviamos para todo o Brasil com embalagem reforçada e rastreamento completo.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ENCOMENDAS -->
-  <section id="encomendas" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div style="max-width: 800px; margin: 0 auto; text-align: center;" class="fade-up">
-      <div style="font-size: 3rem; margin-bottom: 1rem;">🔥</div>
-      <h2 class="section-title" style="margin-bottom: 1rem;">Projetos Sob Encomenda</h2>
-      <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">Quer uma faca única, forjada exatamente do seu jeito? Trabalhamos com projetos personalizados onde você escolhe o aço, o design do cabo (madeiras nobres, osso, resina) e a gravação na lâmina (nome, logo, dedicatória). Uma verdadeira joia exclusiva feita para a sua mão.</p>
-      <a href="#contato" class="btn btn-outline">Solicitar Orçamento Personalizado</a>
-    </div>
-  </section>
-
-  <!-- CTA / CONTATO -->
-  <section class="cta" id="contato">
-    <h2 class="fade-up">Faça Sua Encomenda</h2>
-    <p class="fade-up">Entre em contato pelo WhatsApp e garanta sua peça artesanal. Aceitamos encomendas personalizadas!</p>
-    <a href="https://wa.me/5500000000000" target="_blank" class="btn btn-whatsapp fade-up">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Chamar no WhatsApp
-    </a>
-  </section>
+  <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21%20Quero%20falar%20sobre%20um%20pedido%20RT%20Facas." class="fab-wa" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp para fazer pedido">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
   <!-- FOOTER -->
   <footer>
-    <a href="#" class="logo">RT<span>FACAS</span></a>
-    <p>&copy; 2026 RT Facas — Cutelaria Artesanal. Todos os direitos reservados.</p>
+    <div class="footer-inner">
+      <a href="#inicio" class="logo">RT<span>FACAS</span></a>
+      <p class="footer-tagline">Cutelaria artesanal</p>
+      <p>&copy; 2026 RT Facas — Cutelaria Artesanal. Todos os direitos reservados.</p>
+    </div>
   </footer>
 
   <script>
-    // Hamburger menu
-    document.getElementById('hamburger').addEventListener('click', function() {
-      document.getElementById('navLinks').classList.toggle('open');
-    });
+    (function () {
+      var nav = document.getElementById('siteNav');
+      var hamburger = document.getElementById('hamburger');
+      var navLinks = document.getElementById('navLinks');
+      var sectionLinks = document.querySelectorAll('.nav-links a[data-section]');
 
-    // Close menu on link click
-    document.querySelectorAll('.nav-links a').forEach(function(link) {
-      link.addEventListener('click', function() {
-        document.getElementById('navLinks').classList.remove('open');
+      function setNavScrolled() {
+        nav.classList.toggle('is-scrolled', window.scrollY > 12);
+      }
+      setNavScrolled();
+      window.addEventListener('scroll', setNavScrolled, { passive: true });
+
+      function closeMenu() {
+        navLinks.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Abrir menu');
+        document.body.style.overflow = '';
+      }
+
+      function openMenu() {
+        navLinks.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Fechar menu');
+        document.body.style.overflow = 'hidden';
+      }
+
+      hamburger.addEventListener('click', function () {
+        if (navLinks.classList.contains('open')) closeMenu();
+        else openMenu();
       });
-    });
 
-    // Scroll fade-in animation
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!navLinks.classList.contains('open')) return;
+        var inner = nav.querySelector('.nav-inner');
+        if (inner && !inner.contains(e.target)) closeMenu();
+      });
+
+      var sections = ['inicio', 'sobre', 'produtos', 'depoimentos', 'diferenciais', 'encomendas', 'contato'].map(function (id) {
+        return document.getElementById(id);
+      }).filter(Boolean);
+
+      function updateActiveNav() {
+        var scrollPos = window.scrollY + (nav.offsetHeight || 72) + 24;
+        var activeId = 'inicio';
+        for (var i = 0; i < sections.length; i++) {
+          var el = sections[i];
+          if (el && el.offsetTop <= scrollPos) activeId = el.id;
         }
-      });
-    }, { threshold: 0.1 });
+        sectionLinks.forEach(function (a) {
+          var sec = a.getAttribute('data-section');
+          a.classList.toggle('is-active', sec === activeId);
+        });
+      }
+      updateActiveNav();
+      window.addEventListener('scroll', updateActiveNav, { passive: true });
 
-    document.querySelectorAll('.fade-up').forEach(function(el) {
-      observer.observe(el);
-    });
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      document.querySelectorAll('.fade-up').forEach(function (el) {
+        observer.observe(el);
+      });
+
+      var heroEl = document.querySelector('.hero');
+      if (heroEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(min-width: 900px)').matches) {
+        var raf = null;
+        heroEl.addEventListener('mousemove', function (e) {
+          if (raf) return;
+          raf = requestAnimationFrame(function () {
+            raf = null;
+            var r = heroEl.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width - 0.5;
+            var y = (e.clientY - r.top) / r.height - 0.5;
+            heroEl.style.setProperty('--mx', Math.round(x * 28) + 'px');
+            heroEl.style.setProperty('--my', Math.round(y * 22) + 'px');
+          });
+        }, { passive: true });
+        heroEl.addEventListener('mouseleave', function () {
+          heroEl.style.setProperty('--mx', '0px');
+          heroEl.style.setProperty('--my', '0px');
+        });
+      }
+    })();
   </script>
 </body>
 </html>
